@@ -1,6 +1,6 @@
 Go to the accounts manager dashboard to get started
 
-[prysm-validator.public.dappnode](http://prysm-validator.public.dappnode/)
+[prysm-witti-validator.dappnode](http://prysm-witti-validator.dappnode/?beaconAccountViewer=https%3A%2F%2Fwitti.beaconcha.in%2Fvalidator%2F)
 
 ---
 

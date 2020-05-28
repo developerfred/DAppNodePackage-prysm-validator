@@ -1,7 +1,7 @@
 version: '3.4'
 services:
-  prysm-validator.public.dappnode.eth:
-    image: 'prysm-validator.public.dappnode.eth:1.0.12'
+  prysm-witti-validator.dnp.dappnode.eth:
+    image: 'prysm-witti-validator.dnp.dappnode.eth:1.0.2'
     build:
       context: .
       dockerfile: build/Dockerfile
@@ -14,12 +14,12 @@ services:
     restart: always
     environment:
       - PASSWORD=
-      - GRAFFITI=prylabs-validator--from-dappnode
+      - GRAFFITI=prylabs-witi-validator-dappnode
       - VERBOSITY=info
       - LOG_LEVEL=
       - EXTRA_OPTS=--enable-account-metrics
-      - 'BEACON_GRPC_URL=prysm-beacon-chain.public.dappnode:4000'
-      - 'BEACON_GRPC_GATEWAY_URL=http://prysm-beacon-chain.public.dappnode:4001'
+      - 'BEACON_GRPC_URL=prysm-witti-beacon-chain.dappnode:4000'
+      - 'BEACON_GRPC_GATEWAY_URL=http://prysm-witti-beacon-chain.dappnode:4001'
       - 'WEB3PROVIDER=https://goerli.dappnode.net'
 volumes:
   data: {}

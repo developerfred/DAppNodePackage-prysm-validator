@@ -1,6 +1,17 @@
 import dargs from "dargs";
+import { beaconRpcProvider } from "../params";
 
 type CmdRunner = (cmd: string) => Promise<string>;
+
+/**
+ * ethdo global options
+ */
+const globalOptions = {
+  /**
+   * connection to Ethereum 2 node via GRPC (default "localhost:4000")
+   */
+  connection: beaconRpcProvider
+};
 
 export interface WalletAccountData {
   name: string;
@@ -22,9 +33,13 @@ export class EthdoCmds {
 
   private async run(
     subCmd: string,
-    options?: { [key: string]: any }
+    options: { [key: string]: any } = {}
   ): Promise<string> {
-    const cmd = ["ethdo", subCmd, ...dargs(options || {})].join(" ");
+    const cmd = [
+      "ethdo",
+      subCmd,
+      ...dargs({ ...globalOptions, ...options })
+    ].join(" ");
     try {
       return await this.cmdRunner(cmd);
     } catch (e) {

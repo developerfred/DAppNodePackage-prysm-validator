@@ -50,17 +50,11 @@ RUN GO111MODULE=on go get github.com/wealdtech/ethdo
 ################
 # Prysm binary
 ################
-FROM debian:stretch-slim as validator-binary
+FROM l.gcr.io/google/bazel:3.0.0 as binary
 
-ARG VERSION
-ENV DOWNLOAD_URL https://github.com/prysmaticlabs/prysm/releases/download
-ENV BINARY_URL $DOWNLOAD_URL/$VERSION/validator-$VERSION-linux-amd64
+RUN git clone https://github.com/prysmaticlabs/prysm 
 
-RUN DEBIAN_FRONTEND=noninteractive \
-  apt update && apt install --assume-yes --no-install-recommends wget ca-certificates && \
-  wget $BINARY_URL -O /usr/local/bin/validator && \
-  chmod +x  /usr/local/bin/validator && \
-  rm -rf /var/lib/apt/lists/*
+RUN cd prysm && git checkout witti && bazel build //validator:validator 
 
 ################
 # Final layer
@@ -76,16 +70,21 @@ ENV GIT_DATA_PATH /app/.git-data.json
 ENV WORKDIR /app
 
 # ETH2 Config
-ENV ETH2_NETWORK_NAME Topaz Testnet
+ENV ETH2_NETWORK_NAME Witti Testnet
 
 WORKDIR ${WORKDIR}
 
 ADD build/ssl /app/ssl
 COPY --from=node:10.20.1-stretch-slim /usr/local/bin/node /usr/local/bin
 COPY --from=ethdo-binary /go/bin/ethdo /usr/local/bin/ 
-COPY --from=validator-binary /usr/local/bin/validator /usr/local/bin/
+COPY --from=binary /prysm/bazel-bin/validator/linux_amd64_stripped/validator /usr/local/bin/validator
 COPY --from=build-ui /app/build ${CLIENT_FILES_PATH}
 COPY --from=build-server /app/build server
 COPY --from=git-data /app/.git-data.json $GIT_DATA_PATH
+
+RUN DEBIAN_FRONTEND=noninteractive \
+  apt update && apt install --assume-yes --no-install-recommends \
+  git \
+  && rm -rf /var/lib/apt/lists/*
 
 CMD ["node", "server"]
