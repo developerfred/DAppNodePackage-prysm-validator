@@ -6,7 +6,7 @@
  */
 export const eth1Faucet = "https://goerli-faucet.dappnode.net/";
 export const eth1TxViewer = "https://goerli.etherscan.io/tx/";
-export const beaconAccountViewer = "https://beacon.etherscan.io/validator/";
+export const beaconAccountViewer = "https://witti.beaconcha.in/validator/";
 export const validatorCost = 32.1;
 
 // Help links

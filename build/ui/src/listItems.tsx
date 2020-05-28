@@ -19,12 +19,13 @@ const sideNavMainItems = [
   {
     name: "Metrics",
     Icon: BarChartIcon,
-    href: "http://dms.dappnode/d/DNPE2D/dappnode-eth-2-0-dashboard",
+    href:
+      "http://dms.dappnode/d/DNPE2PWD/dappnode-eth-2-0-prysm-witti-dashboard",
   },
   {
     name: "Nodes",
     Icon: LayersIcon,
-    href: "https://eth2stats.io/topaz-testnet",
+    href: "https://eth2stats.io/witti-testnet",
   },
 ];
 
