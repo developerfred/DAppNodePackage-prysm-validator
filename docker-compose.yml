@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   prysm-validator.public.dappnode.eth:
-    image: 'prysm-validator.public.dappnode.eth:1.0.13'
+    image: 'prysm-validator.public.dappnode.eth:1.0.14'
     build:
       context: .
       dockerfile: build/Dockerfile
