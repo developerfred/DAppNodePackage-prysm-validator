@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   prysm-onyx-validator.dnp.dappnode.eth:
-    image: 'prysm-onyx-validator.dnp.dappnode.eth:1.0.4'
+    image: 'prysm-onyx-validator.dnp.dappnode.eth:1.0.5'
     build:
       context: .
       dockerfile: build/Dockerfile
